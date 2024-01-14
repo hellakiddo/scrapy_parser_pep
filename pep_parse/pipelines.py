@@ -2,17 +2,17 @@ import csv
 import datetime as dt
 from collections import defaultdict
 from pep_parse.settings import (
-    DATETIME_FORMAT,
-    FILE_FORMAT,
+    BASE_DIR, DATETIME_FORMAT,
+    FILE_FORMAT, RESULTS,
     SUMMARY_NAME, SUMMARY_TABLE_BOTTOM,
-    SUMMARY_TABLE_HEADER, RESULTS_DIR
+    SUMMARY_TABLE_HEADER
 )
 
 
 class PepParsePipeline:
 
     def __init__(self):
-        self.results_dir = RESULTS_DIR
+        self.results_dir = BASE_DIR / RESULTS
         self.results_dir.mkdir(exist_ok=True)
 
     def open_spider(self, spider):
