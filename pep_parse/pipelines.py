@@ -28,13 +28,11 @@ class PepParsePipeline:
                 csvfile,
                 dialect=csv.unix_dialect,
                 quoting=csv.QUOTE_NONE
-            ).writerows(
-                [
-                    SUMMARY_TABLE_HEADER,
-                    *self.statuses.items(),
-                    (SUMMARY_TABLE_BOTTOM, sum(self.statuses.values()))
-                ]
-            )
+            ).writerows((
+                SUMMARY_TABLE_HEADER,
+                *self.statuses.items(),
+                (SUMMARY_TABLE_BOTTOM, sum(self.statuses.values()))
+            ))
 
     def process_item(self, item, spider):
         self.statuses[item['status']] += 1

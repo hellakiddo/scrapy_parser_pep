@@ -6,7 +6,9 @@ from pep_parse.settings import PEP_SPIDER_URL
 class PepSpider(scrapy.Spider):
     name = 'pep'
     allowed_domains = [PEP_SPIDER_URL]
-    start_urls = [f'https://{PEP_SPIDER_URL}/']
+    start_urls = [
+        f'https://{PEP_SPIDER_URL}/' for PEP_SPIDER_URL in allowed_domains
+    ]
 
     def parse(self, response):
         for link in response.css('tbody tr a[href^="pep-"]'):
@@ -17,11 +19,8 @@ class PepSpider(scrapy.Spider):
         number = title_parts[1] if len(title_parts) > 1 else None
         name = ' '.join(title_parts[2:]).strip()
 
-        data = {
-            'number': number,
-            'name': name,
-            'status': response.css(
-                'dt:contains("Status")+dd abbr::text'
-            ).get()
-        }
-        yield PepParseItem(data)
+        yield PepParseItem(
+            number=number,
+            name=name,
+            status=response.css('dt:contains("Status")+dd abbr::text').get()
+        )
