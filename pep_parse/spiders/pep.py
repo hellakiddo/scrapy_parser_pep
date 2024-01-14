@@ -25,4 +25,3 @@ class PepSpider(scrapy.Spider):
             ).get()
         }
         yield PepParseItem(data)
-

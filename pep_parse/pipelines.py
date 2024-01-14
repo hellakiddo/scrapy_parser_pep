@@ -8,6 +8,7 @@ from pep_parse.settings import (
     SUMMARY_TABLE_HEADER
 )
 
+
 class PepParsePipeline:
 
     def __init__(self):
